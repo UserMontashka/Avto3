@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="338293be98b54ee99ecd418284138751" Name="Diagram1" ZoomLevel="29">
+        <EntityTypeShape EntityType="Avto_DBModel.Arrival" Width="1.5" PointX="5.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Avto_DBModel.Cars" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Avto_DBModel.Client" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Avto_DBModel.Dispatch" Width="1.5" PointX="5.25" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Avto_DBModel.dogovor" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Avto_DBModel.Issue" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Avto_DBModel.Refund" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Avto_DBModel.roles" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Avto_DBModel.Users" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="Avto_DBModel.FK_Arrival_Avto" ManuallyRouted="false" />
+        <AssociationConnector Association="Avto_DBModel.FK_Dispatch_Avto" ManuallyRouted="false" />
+        <AssociationConnector Association="Avto_DBModel.FK_dogovor_Avto" ManuallyRouted="false" />
+        <AssociationConnector Association="Avto_DBModel.FK_dogovor_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="Avto_DBModel.FK_Issue_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="Avto_DBModel.FK_Refund_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="Avto_DBModel.FK_Users_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="Avto_DBModel.FK_dogovor_Issue" ManuallyRouted="false" />
+        <AssociationConnector Association="Avto_DBModel.FK_dogovor_Refund" ManuallyRouted="false" />
+        <AssociationConnector Association="Avto_DBModel.FK_Users_roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

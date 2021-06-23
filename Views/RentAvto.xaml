@@ -1,0 +1,51 @@
+﻿<Page x:Class="Avto.Views.RentAvto"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Avto.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RentAvto">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.6*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+           
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="Доступные авто" VerticalAlignment="Top" HorizontalAlignment="Center" Style="{StaticResource MainLableStyle}" FontSize="14"></Label>
+        </StackPanel>
+
+        <DataGrid x:Name="DataGridSearchAvto" Grid.Row="1" Height="500" VerticalAlignment="Top" AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Height="100" Width="100" Source="{Binding image_cars}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+               
+                <DataGridTextColumn Header="Результаты поиска :"></DataGridTextColumn>
+                <DataGridTextColumn Header="Гос.Номер" Binding= "{Binding state_number}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Марка" Binding= "{Binding brand}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Цвет" Binding= "{Binding color}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Год выпуска" Binding= "{Binding year_of_issue}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Наличие" Binding= "{Binding availability}"></DataGridTextColumn>
+                
+               
+               
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+
+
+
+
+
+
+    </Grid>
+</Page>

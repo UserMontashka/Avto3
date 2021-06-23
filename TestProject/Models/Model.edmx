@@ -1,0 +1,662 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Avto_DBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Arrival">
+          <Key>
+            <PropertyRef Name="id_arrival" />
+          </Key>
+          <Property Name="id_cars" Type="int" Nullable="false" />
+          <Property Name="arrival" Type="datetime" Nullable="false" />
+          <Property Name="id_arrival" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="id_cars" />
+          </Key>
+          <Property Name="id_cars" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="state_number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="brand" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="color" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="year_of_issue" Type="date" Nullable="false" />
+          <Property Name="availability" Type="tinyint" Nullable="false" />
+          <Property Name="image_cars" Type="image" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="patronymic" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="drivers_licensed" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="seria_passport" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dispatch">
+          <Key>
+            <PropertyRef Name="id_dispatch" />
+          </Key>
+          <Property Name="id_cars" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dispatch" Type="datetime" Nullable="false" />
+          <Property Name="id_dispatch" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dogovor">
+          <Key>
+            <PropertyRef Name="id_dogovor" />
+          </Key>
+          <Property Name="id_dogovor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_client" Type="int" Nullable="false" />
+          <Property Name="id_cars" Type="int" Nullable="false" />
+          <Property Name="id_issue" Type="int" Nullable="false" />
+          <Property Name="id_refund" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Issue">
+          <Key>
+            <PropertyRef Name="id_issue" />
+          </Key>
+          <Property Name="id_issue" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_client" Type="int" Nullable="false" />
+          <Property Name="issue" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Refund">
+          <Key>
+            <PropertyRef Name="id_refund" />
+          </Key>
+          <Property Name="id_refund" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_client" Type="int" Nullable="false" />
+          <Property Name="refund" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="id_roles" />
+          </Key>
+          <Property Name="id_roles" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_roles" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_roles" Type="int" Nullable="false" />
+          <Property Name="id_client" Type="int" />
+        </EntityType>
+        <Association Name="FK_Arrival_Avto">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="Arrival" Type="Self.Arrival" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="id_cars" />
+            </Principal>
+            <Dependent Role="Arrival">
+              <PropertyRef Name="id_cars" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dispatch_Avto">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="Dispatch" Type="Self.Dispatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="id_cars" />
+            </Principal>
+            <Dependent Role="Dispatch">
+              <PropertyRef Name="id_cars" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dogovor_Avto">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="dogovor" Type="Self.dogovor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="id_cars" />
+            </Principal>
+            <Dependent Role="dogovor">
+              <PropertyRef Name="id_cars" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dogovor_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="dogovor" Type="Self.dogovor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="dogovor">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dogovor_Issue">
+          <End Role="Issue" Type="Self.Issue" Multiplicity="1" />
+          <End Role="dogovor" Type="Self.dogovor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issue">
+              <PropertyRef Name="id_issue" />
+            </Principal>
+            <Dependent Role="dogovor">
+              <PropertyRef Name="id_issue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dogovor_Refund">
+          <End Role="Refund" Type="Self.Refund" Multiplicity="1" />
+          <End Role="dogovor" Type="Self.dogovor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Refund">
+              <PropertyRef Name="id_refund" />
+            </Principal>
+            <Dependent Role="dogovor">
+              <PropertyRef Name="id_refund" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Issue_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Issue" Type="Self.Issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Issue">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Refund_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Refund" Type="Self.Refund" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Refund">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id_roles" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="id_roles" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Avto_DBModelContainer">
+          <EntitySet Name="Arrival" EntityType="Self.Arrival" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dispatch" EntityType="Self.Dispatch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dogovor" EntityType="Self.dogovor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Issue" EntityType="Self.Issue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Refund" EntityType="Self.Refund" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Arrival_Avto" Association="Self.FK_Arrival_Avto">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Arrival" EntitySet="Arrival" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dispatch_Avto" Association="Self.FK_Dispatch_Avto">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Dispatch" EntitySet="Dispatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dogovor_Avto" Association="Self.FK_dogovor_Avto">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="dogovor" EntitySet="dogovor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dogovor_Client" Association="Self.FK_dogovor_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="dogovor" EntitySet="dogovor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dogovor_Issue" Association="Self.FK_dogovor_Issue">
+            <End Role="Issue" EntitySet="Issue" />
+            <End Role="dogovor" EntitySet="dogovor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dogovor_Refund" Association="Self.FK_dogovor_Refund">
+            <End Role="Refund" EntitySet="Refund" />
+            <End Role="dogovor" EntitySet="dogovor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Issue_Client" Association="Self.FK_Issue_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Issue" EntitySet="Issue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Refund_Client" Association="Self.FK_Refund_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Refund" EntitySet="Refund" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Client" Association="Self.FK_Users_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_roles" Association="Self.FK_Users_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Avto_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Arrival">
+          <Key>
+            <PropertyRef Name="id_arrival" />
+          </Key>
+          <Property Name="id_cars" Type="Int32" Nullable="false" />
+          <Property Name="arrival1" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_arrival" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Cars" Relationship="Self.FK_Arrival_Avto" FromRole="Arrival" ToRole="Cars" />
+        </EntityType>
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="id_cars" />
+          </Key>
+          <Property Name="id_cars" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="state_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="year_of_issue" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="availability" Type="Byte" Nullable="false" />
+          <Property Name="image_cars" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Arrival" Relationship="Self.FK_Arrival_Avto" FromRole="Cars" ToRole="Arrival" />
+          <NavigationProperty Name="Dispatch" Relationship="Self.FK_Dispatch_Avto" FromRole="Cars" ToRole="Dispatch" />
+          <NavigationProperty Name="dogovor" Relationship="Self.FK_dogovor_Avto" FromRole="Cars" ToRole="dogovor" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="drivers_licensed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="seria_passport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="dogovor" Relationship="Self.FK_dogovor_Client" FromRole="Client" ToRole="dogovor" />
+          <NavigationProperty Name="Issue" Relationship="Self.FK_Issue_Client" FromRole="Client" ToRole="Issue" />
+          <NavigationProperty Name="Refund" Relationship="Self.FK_Refund_Client" FromRole="Client" ToRole="Refund" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Client" FromRole="Client" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Dispatch">
+          <Key>
+            <PropertyRef Name="id_dispatch" />
+          </Key>
+          <Property Name="id_cars" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dispatch1" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_dispatch" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cars" Relationship="Self.FK_Dispatch_Avto" FromRole="Dispatch" ToRole="Cars" />
+        </EntityType>
+        <EntityType Name="dogovor">
+          <Key>
+            <PropertyRef Name="id_dogovor" />
+          </Key>
+          <Property Name="id_dogovor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_client" Type="Int32" Nullable="false" />
+          <Property Name="id_cars" Type="Int32" Nullable="false" />
+          <Property Name="id_issue" Type="Int32" Nullable="false" />
+          <Property Name="id_refund" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cars" Relationship="Self.FK_dogovor_Avto" FromRole="dogovor" ToRole="Cars" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_dogovor_Client" FromRole="dogovor" ToRole="Client" />
+          <NavigationProperty Name="Issue" Relationship="Self.FK_dogovor_Issue" FromRole="dogovor" ToRole="Issue" />
+          <NavigationProperty Name="Refund" Relationship="Self.FK_dogovor_Refund" FromRole="dogovor" ToRole="Refund" />
+        </EntityType>
+        <EntityType Name="Issue">
+          <Key>
+            <PropertyRef Name="id_issue" />
+          </Key>
+          <Property Name="id_issue" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_client" Type="Int32" Nullable="false" />
+          <Property Name="issue1" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Issue_Client" FromRole="Issue" ToRole="Client" />
+          <NavigationProperty Name="dogovor" Relationship="Self.FK_dogovor_Issue" FromRole="Issue" ToRole="dogovor" />
+        </EntityType>
+        <EntityType Name="Refund">
+          <Key>
+            <PropertyRef Name="id_refund" />
+          </Key>
+          <Property Name="id_refund" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_client" Type="Int32" Nullable="false" />
+          <Property Name="refund1" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Refund_Client" FromRole="Refund" ToRole="Client" />
+          <NavigationProperty Name="dogovor" Relationship="Self.FK_dogovor_Refund" FromRole="Refund" ToRole="dogovor" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="id_roles" />
+          </Key>
+          <Property Name="id_roles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_roles" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_roles" FromRole="roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_roles" Type="Int32" Nullable="false" />
+          <Property Name="id_client" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Users_Client" FromRole="Users" ToRole="Client" />
+          <NavigationProperty Name="roles" Relationship="Self.FK_Users_roles" FromRole="Users" ToRole="roles" />
+        </EntityType>
+        <Association Name="FK_Arrival_Avto">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="Arrival" Type="Self.Arrival" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="id_cars" />
+            </Principal>
+            <Dependent Role="Arrival">
+              <PropertyRef Name="id_cars" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dispatch_Avto">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="Dispatch" Type="Self.Dispatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="id_cars" />
+            </Principal>
+            <Dependent Role="Dispatch">
+              <PropertyRef Name="id_cars" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dogovor_Avto">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="dogovor" Type="Self.dogovor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="id_cars" />
+            </Principal>
+            <Dependent Role="dogovor">
+              <PropertyRef Name="id_cars" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dogovor_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="dogovor" Type="Self.dogovor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="dogovor">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Issue_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Issue" Type="Self.Issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Issue">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Refund_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Refund" Type="Self.Refund" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Refund">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dogovor_Issue">
+          <End Role="Issue" Type="Self.Issue" Multiplicity="1" />
+          <End Role="dogovor" Type="Self.dogovor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issue">
+              <PropertyRef Name="id_issue" />
+            </Principal>
+            <Dependent Role="dogovor">
+              <PropertyRef Name="id_issue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dogovor_Refund">
+          <End Role="Refund" Type="Self.Refund" Multiplicity="1" />
+          <End Role="dogovor" Type="Self.dogovor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Refund">
+              <PropertyRef Name="id_refund" />
+            </Principal>
+            <Dependent Role="dogovor">
+              <PropertyRef Name="id_refund" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id_roles" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="id_roles" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Avto_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Arrival" EntityType="Self.Arrival" />
+          <EntitySet Name="Cars" EntityType="Self.Cars" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Dispatch" EntityType="Self.Dispatch" />
+          <EntitySet Name="dogovor" EntityType="Self.dogovor" />
+          <EntitySet Name="Issue" EntityType="Self.Issue" />
+          <EntitySet Name="Refund" EntityType="Self.Refund" />
+          <EntitySet Name="roles" EntityType="Self.roles" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Arrival_Avto" Association="Self.FK_Arrival_Avto">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Arrival" EntitySet="Arrival" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dispatch_Avto" Association="Self.FK_Dispatch_Avto">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Dispatch" EntitySet="Dispatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dogovor_Avto" Association="Self.FK_dogovor_Avto">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="dogovor" EntitySet="dogovor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dogovor_Client" Association="Self.FK_dogovor_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="dogovor" EntitySet="dogovor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Issue_Client" Association="Self.FK_Issue_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Issue" EntitySet="Issue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Refund_Client" Association="Self.FK_Refund_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Refund" EntitySet="Refund" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Client" Association="Self.FK_Users_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dogovor_Issue" Association="Self.FK_dogovor_Issue">
+            <End Role="Issue" EntitySet="Issue" />
+            <End Role="dogovor" EntitySet="dogovor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dogovor_Refund" Association="Self.FK_dogovor_Refund">
+            <End Role="Refund" EntitySet="Refund" />
+            <End Role="dogovor" EntitySet="dogovor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_roles" Association="Self.FK_Users_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Avto_DBModelContainer" CdmEntityContainer="Avto_DBEntities">
+          <EntitySetMapping Name="Arrival">
+            <EntityTypeMapping TypeName="Avto_DBModel.Arrival">
+              <MappingFragment StoreEntitySet="Arrival">
+                <ScalarProperty Name="id_cars" ColumnName="id_cars" />
+                <ScalarProperty Name="arrival1" ColumnName="arrival" />
+                <ScalarProperty Name="id_arrival" ColumnName="id_arrival" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="Avto_DBModel.Cars">
+              <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="id_cars" ColumnName="id_cars" />
+                <ScalarProperty Name="state_number" ColumnName="state_number" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="year_of_issue" ColumnName="year_of_issue" />
+                <ScalarProperty Name="availability" ColumnName="availability" />
+                <ScalarProperty Name="image_cars" ColumnName="image_cars" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="Avto_DBModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="sname" ColumnName="sname" />
+                <ScalarProperty Name="patronymic" ColumnName="patronymic" />
+                <ScalarProperty Name="drivers_licensed" ColumnName="drivers_licensed" />
+                <ScalarProperty Name="seria_passport" ColumnName="seria_passport" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dispatch">
+            <EntityTypeMapping TypeName="Avto_DBModel.Dispatch">
+              <MappingFragment StoreEntitySet="Dispatch">
+                <ScalarProperty Name="id_cars" ColumnName="id_cars" />
+                <ScalarProperty Name="dispatch1" ColumnName="dispatch" />
+                <ScalarProperty Name="id_dispatch" ColumnName="id_dispatch" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dogovor">
+            <EntityTypeMapping TypeName="Avto_DBModel.dogovor">
+              <MappingFragment StoreEntitySet="dogovor">
+                <ScalarProperty Name="id_dogovor" ColumnName="id_dogovor" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="id_cars" ColumnName="id_cars" />
+                <ScalarProperty Name="id_issue" ColumnName="id_issue" />
+                <ScalarProperty Name="id_refund" ColumnName="id_refund" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Issue">
+            <EntityTypeMapping TypeName="Avto_DBModel.Issue">
+              <MappingFragment StoreEntitySet="Issue">
+                <ScalarProperty Name="id_issue" ColumnName="id_issue" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="issue1" ColumnName="issue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Refund">
+            <EntityTypeMapping TypeName="Avto_DBModel.Refund">
+              <MappingFragment StoreEntitySet="Refund">
+                <ScalarProperty Name="id_refund" ColumnName="id_refund" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="refund1" ColumnName="refund" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="Avto_DBModel.roles">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="id_roles" ColumnName="id_roles" />
+                <ScalarProperty Name="name_roles" ColumnName="name_roles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Avto_DBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="id_roles" ColumnName="id_roles" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
